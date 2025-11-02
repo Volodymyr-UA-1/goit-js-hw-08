@@ -84,11 +84,12 @@ function imageTemplate(image) {
 }
 
 function imagesTemplate(images) {
-  return images.map(imageTemplate).join('');
+  return images.map(imageTemplate).join(' ');
  }
 
 container.addEventListener('click', event => {
   event.preventDefault();
+   
 
   const isImage = event.target.classList.contains('gallery-image');
   if (!isImage) return;
@@ -99,12 +100,22 @@ container.addEventListener('click', event => {
     <img src="${largeImage}" width="1112" height="640">
   `);
   instance.show();
+
+  const elem = instance.element();
+  elem.addEventListener('click', () => instance.close());
+
+const onClose = (e) => {
+    if (e.key === 'Escape') {
+      instance.close();
+      document.removeEventListener('keydown', onClose);
+    }
+  };
+  document.addEventListener('keydown', onClose);
 });
 
 
 
 
-// const visible = instance.visible();
 
 
-// instance.close();
+  
